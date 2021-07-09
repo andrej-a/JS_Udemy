@@ -1,5 +1,6 @@
 'use strict';
-const numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', "0");
+const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', "0");
+
 
 const personaMovieDB = {
     count: `${numberOfFilms}`,
@@ -10,9 +11,26 @@ const personaMovieDB = {
 };
 
 for (let i = 0; i < 2; i++) {
-    let lastFilm = prompt('Последний просмотренный?', '');
-    let score = prompt('Оцените его?', '');
-    personaMovieDB.movies[`${lastFilm}`] = score;    
+    let lastWatchedFilm = prompt('Последний просмотренный?', '');
+    if (lastWatchedFilm === null || lastWatchedFilm === "" || lastWatchedFilm.length > 50) {
+        i--;
+    } else {
+        let score = prompt('Как оцените его?', '');
+        if (score === null || score === '') {
+            i--;
+        } else {
+            personaMovieDB.movies[lastWatchedFilm] = score;
+        }  
+    }
+
+}
+
+if (personaMovieDB.count <= 10) {
+    console.log('Просмотрено мало фильмов!');
+} else if (personaMovieDB.count > 10 && personaMovieDB.count <= 30) {
+    console.log('Зритель!');
+} else {
+    console.log('Киноман!');
 }
 
 
