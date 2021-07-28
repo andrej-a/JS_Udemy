@@ -35,10 +35,50 @@ movieDB.movies.sort();
 const list = document.querySelector(".promo__interactive-list");
 list.innerHTML = '';
 
-movieDB.movies.forEach(function (item, i) {
+function getListArray(array) {
+   array.forEach(function (item, i) {
     list.innerHTML += `
-        <li class="promo__interactive-item">${i + 1} ${item}
+        <li class="promo__interactive-item">${i + 1}) ${item}
             <div class="delete"></div>
         </li>
     `;
+}); 
+}
+
+getListArray(movieDB.movies);
+
+function checkLength(string, num) {
+    if (string.length > num) {
+        return string.substr(0, num) + "...";
+    } else {
+        return string;
+    }
+}
+
+function checkBox(elem) {
+    if (elem.checked) {
+        alert("Добавлен любимый фильм");
+    }
+}
+
+ 
+const buttonAdd = document.querySelector("[data-buttonAdd]"),
+      buttonDeleteItem = document.querySelectorAll(".delete"),
+      checkbox = document.querySelector("[data-checkbox]");
+      
+buttonAdd.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    const inputAdd = document.querySelector(".adding__input");
+
+    if (!inputAdd.value) {
+        alert("Введите данные!");
+    } else {
+        movieDB.movies.push( checkLength(inputAdd.value, 21) );
+        movieDB.movies.sort();
+        list.innerHTML = '';
+        getListArray(movieDB.movies);
+        inputAdd.value = '';
+        checkBox(checkbox);
+    }  
 });
