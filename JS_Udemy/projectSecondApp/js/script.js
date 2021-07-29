@@ -85,5 +85,3 @@ buttonAdd.addEventListener("click", function(e) {
         checkBox(checkbox);
     }  
 });
-
-
