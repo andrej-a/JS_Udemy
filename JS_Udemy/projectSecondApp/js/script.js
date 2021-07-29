@@ -20,6 +20,7 @@ promoBG.style.backgroundImage = "url('img/bg.jpg')";
 
 /*Change list of films on the page and add numbering*/
 
+const list = document.querySelector(".promo__interactive-list");
 const movieDB = {
     movies: [
         "Логан",
@@ -30,12 +31,11 @@ const movieDB = {
         "1917",
     ]
 };
-movieDB.movies.sort();
 
-const list = document.querySelector(".promo__interactive-list");
-list.innerHTML = '';
 
 function getListArray(array) {
+    movieDB.movies.sort();
+    list.innerHTML = '';
    array.forEach(function (item, i) {
     list.innerHTML += `
         <li class="promo__interactive-item">${i + 1}) ${item}
@@ -43,6 +43,12 @@ function getListArray(array) {
         </li>
     `;
 }); 
+document.querySelectorAll(".delete").forEach(function(btn, numb) {
+    btn.addEventListener("click", function() {
+        array.splice(numb, 1);
+        getListArray(movieDB.movies);
+    });  
+});
 }
 
 getListArray(movieDB.movies);
@@ -63,7 +69,6 @@ function checkBox(elem) {
 
  
 const buttonAdd = document.querySelector("[data-buttonAdd]"),
-      buttonDeleteItem = document.querySelectorAll(".delete"),
       checkbox = document.querySelector("[data-checkbox]");
       
 buttonAdd.addEventListener("click", function(e) {
@@ -75,10 +80,10 @@ buttonAdd.addEventListener("click", function(e) {
         alert("Введите данные!");
     } else {
         movieDB.movies.push( checkLength(inputAdd.value, 21) );
-        movieDB.movies.sort();
-        list.innerHTML = '';
         getListArray(movieDB.movies);
         inputAdd.value = '';
         checkBox(checkbox);
     }  
 });
+
+
