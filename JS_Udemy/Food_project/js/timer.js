@@ -11,7 +11,7 @@ function getTimeMS(string) {
 const timerItems = document.querySelector(".timer");
 
 function setTimer() {
-const resultMS = +getTimeMS("2021-08-13T21:46:00");
+const resultMS = +getTimeMS("2021-08-13T22:22:00");
 const seconds =  Math.floor( (resultMS / 1000) % 60 ),
         minutes = Math.floor( (resultMS / 1000 / 60) % 60 ),
         hours = Math.floor( ((resultMS / (1000 * 60 * 60)) % 24) ),
@@ -38,6 +38,25 @@ const seconds =  Math.floor( (resultMS / 1000) % 60 ),
 
         if (+resultMS < 1000) {
             clearInterval(updateTime);
+
+            timerItems.innerHTML = `
+            <div class="timer__block">
+            <span id="days">00</span>
+            дней
+        </div>
+        <div class="timer__block">
+            <span id="hours">00</span>
+            часов
+        </div>
+        <div class="timer__block">
+            <span id="minutes">00</span>
+            минут
+        </div>
+        <div class="timer__block">
+            <span id="seconds">00</span>
+            секунд
+        </div>
+        `;
         } 
 }
 
