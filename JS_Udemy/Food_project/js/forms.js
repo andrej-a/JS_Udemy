@@ -2,6 +2,10 @@
 
 const forms = document.querySelectorAll("form");
 
+forms.forEach((e) => {
+    postData(e);
+});
+
 const message = {
     loading: "img/form/spinner(1).svg",
     done: "Данные отправлены. Спасибо!",
@@ -38,7 +42,7 @@ const message = {
 }*/
 
 
-function postData(form) { //JSON and FormData to JSON IN POST
+/*function postData(form) { //XML    JSON and FormData to JSON IN POST
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         
@@ -77,7 +81,94 @@ function postData(form) { //JSON and FormData to JSON IN POST
             }
         });
     });
-}
+}*/
+
+
+/*function postData(form) {                         //FETCH IN POST
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+        const formData = new FormData(form);
+
+        const statusMessage = document.createElement("img");
+        statusMessage.src = message.loading;
+        statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+        with: 50px;
+        height: 50px;
+        `;
+
+        form.insertAdjacentElement("afterend", statusMessage);
+        
+        fetch("server.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(data => data.text())
+        .then(data => {
+            showThanksModal(message.done);
+
+            console.log(data);
+        })
+        .catch(() => {
+            showThanksModal(message.error);
+        }).finally(() => {
+            formsTimer(form, statusMessage, 2000);
+        });
+    });
+}*/
+
+
+
+// FETCH API IN JSON
+
+function postData(form) { 
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+        const formData = new FormData(form);
+
+        const statusMessage = document.createElement("img");
+        statusMessage.src = message.loading;
+        statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+        with: 50px;
+        height: 50px;
+        `;
+
+        form.insertAdjacentElement("afterend", statusMessage);
+        formsTimer(form, statusMessage, 2000);
+        
+        const object = {};
+
+                formData.forEach(function(value, key) {
+                    object[key] = value;
+                });
+        
+        fetch("server.php", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(object)
+        })
+        .then(() => {
+            showThanksModal(message.done);
+            console.log(object);
+        })
+        .catch(() => {
+            showThanksModal(message.error);
+        })
+        .finally(() => {
+            formsTimer(form, statusMessage, 2000);
+        });
+
+    }); //FORM ADDEVENTLISTENER
+}   //POSTDATA*/
+
+
 
 function formsTimer(resetElement, removeElement, ms) {
     setTimeout(() => {
@@ -85,11 +176,6 @@ function formsTimer(resetElement, removeElement, ms) {
         resetElement.reset();
     }, ms);
 }
-
-forms.forEach((e) => {
-    postData(e);
-});
-
 
 function showThanksModal(status) {
     document.querySelector(".modal").style.display = "block"; ///do modal window block
@@ -112,3 +198,10 @@ function showThanksModal(status) {
             modalContentFormToNone.style.display = "block"; 
         }, 4000);
 }
+
+
+fetch("http://localhost:3000/menu")
+.then(data => data.json())
+.then(data => console.log(data));
+
+
