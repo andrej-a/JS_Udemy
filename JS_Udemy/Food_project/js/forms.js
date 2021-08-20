@@ -3,7 +3,7 @@
 const forms = document.querySelectorAll("form");
 
 forms.forEach((e) => {
-    postData(e);
+    bindPostData(e);
 });
 
 const message = {
@@ -123,11 +123,24 @@ const message = {
 
 // FETCH API IN JSON
 
-function postData(form) { 
-    form.addEventListener("submit", (event) => {
+const postData = async (url, method, targetBody) => {       //async-await function
+    
+    const result = await fetch(url, {       //works async
+        method: method,
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: targetBody
+    });
+
+    return await result.json();
+};
+
+function bindPostData(form) { 
+    form.addEventListener("submit", (event) => {       
         event.preventDefault();
         
-        const formData = new FormData(form);
+        const formData = new FormData(form);        //get formses data
 
         const statusMessage = document.createElement("img");
         statusMessage.src = message.loading;
@@ -140,23 +153,19 @@ function postData(form) {
 
         form.insertAdjacentElement("afterend", statusMessage);
         formsTimer(form, statusMessage, 2000);
-        
-        const object = {};
 
-                formData.forEach(function(value, key) {
+        const json = JSON.stringify(Object.fromEntries(formData.entries()));        //from formData to JSON
+
+        /*const object = {};
+
+                formData.forEach(function(value, key) {   //up its better formData to JSON
                     object[key] = value;
-                });
+                });*/
         
-        fetch("server.php", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(object)
-        })
-        .then(() => {
+        postData("http://localhost:3000/requests", "POST", json)
+        .then(result => {
             showThanksModal(message.done);
-            console.log(object);
+            console.log(result);
         })
         .catch(() => {
             showThanksModal(message.error);
@@ -198,10 +207,3 @@ function showThanksModal(status) {
             modalContentFormToNone.style.display = "block"; 
         }, 4000);
 }
-
-
-fetch("http://localhost:3000/menu")
-.then(data => data.json())
-.then(data => console.log(data));
-
-

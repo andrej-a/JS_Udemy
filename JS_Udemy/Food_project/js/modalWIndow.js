@@ -1,6 +1,6 @@
 "use strict";
 
-const btnWhite = document.querySelector(".btn_white");
+/*const btnWhite = document.querySelector(".btn_white");
 const btnDark = document.querySelector(".btn_dark");
 const modalWindow = document.querySelector(".modal");
 const modalClose = modalWindow.querySelector(".modal__close");
@@ -62,4 +62,4 @@ function displayBlock(elem) {
     elem.classList.add("opened");
     document.body.style.overflow = "hidden";
 }
-
+*/

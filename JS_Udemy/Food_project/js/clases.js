@@ -1,6 +1,6 @@
 "use strict";
 
-class MenuItem {
+class MenuItem {        //create class
     constructor(img, alt, subtitle, describe, total) {
         this.imgSRC = img;
         this.alt = alt;
@@ -27,34 +27,33 @@ class MenuItem {
     }
 }
 
-const menuFitnes = new MenuItem("img/tabs/vegy.jpg", 
-    "vegy", 
-    "Меню 'Фитнес'", 
-    `Меню "Фитнес" - это новый подход 
-    к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. 
-    Это абсолютно новый продукт с оптимальной ценой и высоким качеством!`, 
-    7);
-
-const menuPremium = new MenuItem("img/tabs/elite.jpg", 
-    "elite", 
-    "Меню 'Премиум'", 
-    `В меню “Премиум” 
-    мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, 
-    морепродукты, фрукты - ресторанное меню без похода в ресторан!`, 
-    15);
-
-const menuPostnoe = new MenuItem("img/tabs/post.jpg", 
-    "post", 
-    "Меню 'Постное'", 
-    `Меню “Постное” - это тщательный 
-    подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, 
-    кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.`, 
-    11);
-
-
-const container = document.querySelector(".menu__field .container");
+const container = document.querySelector(".menu__field .container");    //clear cards
 container.innerHTML = '';
 
-container.innerHTML += menuFitnes.setItems();
-container.innerHTML += menuPremium.setItems();
-container.innerHTML += menuPostnoe.setItems();
+const getItemsFromServer = async (url) => {     //use async ff for get data
+    const data = await fetch(url);
+        
+    if (!data.ok) {
+            throw new Error(`Could not fetch ${url}, status ${data.status}`);
+        }
+
+    return await data.json();
+};
+
+getItemsFromServer("http://localhost:3000/menu")        //post it to cards of the content
+.then(data => {
+    data.forEach( ({img, altimg, title, descr, price}) => {
+        container.innerHTML += new MenuItem(img, altimg, title, descr, price).setItems();
+    });
+});
+
+
+//GET BY AXIOS LIBRARY
+
+/*axios.get("http://localhost:3000/menu")
+.then(data => {
+    data.data.forEach( ({img, altimg, title, descr, price}) => {
+        container.innerHTML += new MenuItem(img, altimg, title, descr, price).setItems();
+    });
+});*/
+
