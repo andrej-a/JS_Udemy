@@ -9,7 +9,7 @@ const sliderTotal = document.querySelector("#total");
 const btnNext = document.querySelector(".offer__slider-next");
 const btnPrev = document.querySelector(".offer__slider-prev");
 
-const width = window.getComputedStyle(wrapper).width; //get width of wrapper
+const width = +(window.getComputedStyle(wrapper).width).replace(/\D/gi, ""); //get width of wrapper 
 
 let index = 1;
 let offset = 0;
@@ -29,10 +29,10 @@ setCurrent();
 btnNext.addEventListener("click", () => {
     index++;
                         //default 650                   
-    if (offset === parseInt(width, 10) * (slidersArray.length - 1)) {
+    if (offset === width * (slidersArray.length - 1)) {
         offset = 0;
     } else {
-        offset += parseInt(width, 10);
+        offset += width;
     }
     innerWrapper.style.transform = `translateX(-${offset}px)`;
 
@@ -46,9 +46,9 @@ btnPrev.addEventListener("click", () => {
     index--;
 
     if (offset === 0) {
-        offset = parseInt(width, 10) * (slidersArray.length - 1);
+        offset = width * (slidersArray.length - 1);
     } else {
-        offset -= parseInt(width, 10);
+        offset -= width;
     }
     innerWrapper.style.transform = `translateX(-${offset}px)`;
 

@@ -11,7 +11,7 @@ function getTimeMS(string) {
 const timerItems = document.querySelector(".timer");
 
 function setTimer() {
-const resultMS = +getTimeMS("2021-08-13T22:22:00");
+const resultMS = +getTimeMS("2021-08-28T13:30:00");
 const seconds =  Math.floor( (resultMS / 1000) % 60 ),
         minutes = Math.floor( (resultMS / 1000 / 60) % 60 ),
         hours = Math.floor( ((resultMS / (1000 * 60 * 60)) % 24) ),

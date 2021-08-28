@@ -13,6 +13,7 @@
     <script defer src="js/forms.js"></script>
     <!-- <script defer src="js/slider.js"></script> -->
     <script defer src="js/sliderTwo.js"></script>
+    <script defer src="js/calc.js"></script>
 </head>
 <body>
     <header class="header">
@@ -172,14 +173,14 @@
                     Ваш пол
                 </div>
                 <div class="calculating__choose" id="gender">
-                    <div class="calculating__choose-item calculating__choose-item_active">Женщина</div>
-                    <div class="calculating__choose-item">Мужчина</div>
+                    <div class="calculating_gender calculating__choose-item calculating__choose-item_active">Женщина</div>
+                    <div class="calculating_gender calculating__choose-item">Мужчина</div>
                 </div>
 
                 <div class="calculating__subtitle">
                     Ваша конституция
                 </div>
-                <div class="calculating__choose calculating__choose_medium">
+                <class class="calculating__choose calculating__choose_medium">
                     <input type="text" id="height" placeholder="Введите рост" class="calculating__choose-item">
                     <input type="text" id="weight" placeholder="Введите вес"  class="calculating__choose-item">
                     <input type="text" id="age" placeholder="Введите возраст" class="calculating__choose-item">
@@ -189,10 +190,10 @@
                     Выберите вашу физическая активность
                 </div>
                 <div class="calculating__choose calculating__choose_big">
-                    <div id="low" class="calculating__choose-item">Низкая активность </div>
-                    <div id="small"  class="calculating__choose-item calculating__choose-item_active">Невысокая активность</div>
-                    <div id="medium" class="calculating__choose-item">Умеренная активность</div>
-                    <div id="high" class="calculating__choose-item">Высокая активность</div>
+                    <div id="low" data-activity="1.375" class="calculating__choose-item">Низкая активность </div>
+                    <div id="small" data-activity="1.55"  class="calculating__choose-item calculating__choose-item_active">Невысокая активность</div>
+                    <div id="medium" data-activity="1.725" class="calculating__choose-item">Умеренная активность</div>
+                    <div id="high" data-activity="1.9" class="calculating__choose-item">Высокая активность</div>
                 </div>
 
                 <div class="calculating__divider"></div>
@@ -202,7 +203,7 @@
                         Ваша суточная норма калорий:
                     </div>
                     <div class="calculating__result">
-                        <span>2700</span> ккал
+                        <span>0</span> ккал
                     </div>
                 </div>
             </div>
