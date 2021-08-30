@@ -1,23 +1,22 @@
 "use strict";
 
-function getTimeMS(string) {
-    const now = new Date();
-    const finish = new Date(string);
-    const between = finish - now;
-    return between;
-}
+export function timer(timerSelector, dateString) {
 
+    function getTimeMS() {
+        const between = new Date(dateString) - new Date();
+        return between;
+    }
 
-const timerItems = document.querySelector(".timer");
+    const timerItems = document.querySelector(timerSelector);
 
-function setTimer() {
-const resultMS = +getTimeMS("2021-08-28T13:30:00");
-const seconds =  Math.floor( (resultMS / 1000) % 60 ),
-        minutes = Math.floor( (resultMS / 1000 / 60) % 60 ),
-        hours = Math.floor( ((resultMS / (1000 * 60 * 60)) % 24) ),
-        days = Math.floor( (resultMS / (1000 * 60 * 60 * 24)) );
+    function setTimer(timer) {
+        const resultMS = +getTimeMS();
+        const seconds = Math.floor((resultMS / 1000) % 60),
+            minutes = Math.floor((resultMS / 1000 / 60) % 60),
+            hours = Math.floor(((resultMS / (1000 * 60 * 60)) % 24)),
+            days = Math.floor((resultMS / (1000 * 60 * 60 * 24)));
 
-        timerItems.innerHTML = `
+            timer.innerHTML = `
             <div class="timer__block">
             <span id="days">${days < 10 ? '0' + days : days}</span>
             дней
@@ -39,7 +38,7 @@ const seconds =  Math.floor( (resultMS / 1000) % 60 ),
         if (+resultMS < 1000) {
             clearInterval(updateTime);
 
-            timerItems.innerHTML = `
+            timer.innerHTML = `
             <div class="timer__block">
             <span id="days">00</span>
             дней
@@ -57,9 +56,11 @@ const seconds =  Math.floor( (resultMS / 1000) % 60 ),
             секунд
         </div>
         `;
-        } 
-}
+        }
+    }
 
-let updateTime = setInterval(function() {
-    setTimer();
-}, 1000); 
+    let updateTime = setInterval(function () {
+        setTimer(timerItems);
+    }, 1000);
+
+} //timer

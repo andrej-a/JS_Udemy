@@ -1,14 +1,14 @@
 "use strict";
 
-export function slider({sliderWrap, innerWrap, slideArray, mainSlider, currentNumb, totalNumb, nextButton, prevButton}) {
-    const wrapper = document.querySelector(sliderWrap);
-    const innerWrapper = document.querySelector(innerWrap);
-    const slidersArray = document.querySelectorAll(slideArray);
+export function slider() {
+    const wrapper = document.querySelector(".offer__slider-wrapper");
+    const innerWrapper = document.querySelector(".offerSliderInner");
+    const slidersArray = document.querySelectorAll(".offer__slide");
 
-    const sliderCurrent = document.querySelector(currentNumb);
-    const sliderTotal = document.querySelector(totalNumb);
-    const btnNext = document.querySelector(nextButton);
-    const btnPrev = document.querySelector(prevButton);
+    const sliderCurrent = document.querySelector("#current");
+    const sliderTotal = document.querySelector("#total");
+    const btnNext = document.querySelector(".offer__slider-next");
+    const btnPrev = document.querySelector(".offer__slider-prev");
 
     const width = +(window.getComputedStyle(wrapper).width).replace(/\D/gi, ""); //get width of wrapper 
 
@@ -63,7 +63,7 @@ export function slider({sliderWrap, innerWrap, slideArray, mainSlider, currentNu
 
     //dots to slider
 
-    const slider = document.querySelector(mainSlider); //get ALL slider
+    const slider = document.querySelector(".offer__slider"); //get ALL slider
     slider.style.position = "relative"; //dotsField`s position is absolute in slider
 
     const dotsField = document.createElement("div"); //create dotsField
